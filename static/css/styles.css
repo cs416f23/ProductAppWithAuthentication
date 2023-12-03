@@ -1,0 +1,13 @@
+body {
+    background-color: #fefefe;
+    padding-top: 50px;
+}
+
+.update-icon {
+    color: #339af0;
+}
+
+.delete-icon {
+    color: #ff6b6b;
+}
+

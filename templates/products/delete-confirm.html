@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Delete-Confirm
+{% endblock %}
+
+{% block body %}
+    <h1>Confirm</h1>
+
+    <div class="card mb-3">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="{{ product.image.url }}" class="img-fluid rounded-start" alt="{{ product.description }}">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        Are you sure that you want to delete <code>{{ product.description }}</code>?
+                    </h5>
+                    <p class="card-text"><small class="text-muted">Item was last
+                        updated {{ product.created_at|timesince }} ago</small></p>
+
+                    <form method="post" action="{% url 'delete_product' product.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Yes, I am sure!</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <a href="{% url 'index' %}" class="btn btn-info"><i class="fas fa-arrow-left"></i> Go Back</a>
+
+{% endblock %}
