@@ -77,10 +77,12 @@
             type: 'POST',
             data: {
                 product_id: productId,
-                csrfmiddlewaretoken: '{{ csrf_token }}'
+                csrfmiddlewaretoken: '{{ csrf_token }}' // We need csrfmiddlewaretoken since this is a post
             },
             success: function (response) {
                 console.log(response);
+                // If the response returned from our delete_product_with_ajax function in views.py contains a true value for deleted key
+                // remove the row from the html table above where products are displayed (i.e., update the ui to reflect the changes/deletion happened in the database)
                 if (response.deleted) {
                     $('#product-' + productId).remove();
                 }
