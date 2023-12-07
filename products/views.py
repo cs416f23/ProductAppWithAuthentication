@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import ProductForm
 from .models import Product
 from django.contrib.auth.decorators import login_required
-
+from django.http import JsonResponse
 
 # CRUD Operations: Create, Retrieve, Update, Delete
 
@@ -82,3 +82,32 @@ def search_product(request):
     products = Product.objects.filter(user=request.user, description__icontains=search_term)
     context = {'products': products}
     return render(request, 'products/index.html', context)
+
+
+@login_required(login_url='login')
+def delete_product_with_ajax(request):
+    # Check if the request method is POST
+    if request.method == 'POST':
+        # Retrieve the product_id from the POST data.
+        product_id = request.POST['product_id']
+
+        # Query the product table with the given product_id and associated with the current user.
+        product = Product.objects.get(id=product_id, user=request.user)
+
+        # Delete the retrieved product.
+        product.delete()
+
+        # Return a JSON response indicating successful deletion.
+        return JsonResponse(
+            {
+                'deleted': True,
+                'message': 'You deleted the item. Yay!'
+            }
+        )
+
+    # If the request method is not POST, return a JSON response indicating an error.
+    return JsonResponse(
+        {
+            'message': 'Something went wrong!'
+        }
+    )

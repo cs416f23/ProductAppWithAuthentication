@@ -9,6 +9,7 @@ urlpatterns = [
     path('update/<int:product_id>', views.update_product, name='update_product'),
     path('delete/<int:product_id>', views.delete_product, name='delete_product'),
     path('search/', views.search_product, name='search_product'),
+    path('delete/', views.delete_product_with_ajax, name='delete_product_with_ajax'),
 
 ]
 # Necessary for images to be loaded correctly
